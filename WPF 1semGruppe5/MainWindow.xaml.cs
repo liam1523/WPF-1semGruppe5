@@ -26,6 +26,9 @@ namespace WPF_1semGruppe5
         }
         //no problem
         //hehehehe
-        
+        //Christian
+        //hvad så bææbæææ
+        //All your base belong to us (Kevin)
+        //Hvor faen virker det her ikke man
     }
 }
