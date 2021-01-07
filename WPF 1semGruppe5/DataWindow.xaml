@@ -1,0 +1,28 @@
+﻿<Window x:Class="WPF_1semGruppe5.DataWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_1semGruppe5"
+        mc:Ignorable="d"
+        Title="DataWindow" Height="450" Width="800">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="169,72,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="169,110,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <Label Content="Incidenstal" HorizontalAlignment="Left" Margin="39,67,0,0" VerticalAlignment="Top"/>
+        <Label Content="Udviklingen af smitte" HorizontalAlignment="Left" Margin="39,105,0,0" VerticalAlignment="Top"/>
+        <Label Content="Data" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="39,22,0,0" VerticalAlignment="Top"/>
+        <Label Content="Brancher" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="391,22,0,0" VerticalAlignment="Top"/>
+        <Label Content="Antal smittede pr dag" HorizontalAlignment="Left" Margin="39,146,0,0" VerticalAlignment="Top"/>
+        <DataGrid HorizontalAlignment="Left" Height="235" Margin="169,154,0,0" VerticalAlignment="Top" Width="180">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Dato" Binding="{Binding Dato}" Width="90"/>
+                <DataGridTextColumn Header="Cases" Binding="{Binding Cases}" Width="90"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid HorizontalAlignment="Left" Height="297" Margin="391,67,0,0" VerticalAlignment="Top" Width="381"/>
+        <Button Content="Nedluk" Background="red" HorizontalAlignment="Left" Margin="395,380,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Påføre restriktioner" Background="Yellow" HorizontalAlignment="Left" Margin="485,380,0,0" VerticalAlignment="Top" Width="113"/>
+        <Button Content="Åben" Background="Green" HorizontalAlignment="Left" Margin="611,380,0,0" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+</Window>
