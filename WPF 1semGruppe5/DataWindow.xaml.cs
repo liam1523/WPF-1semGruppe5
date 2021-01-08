@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,38 @@ namespace WPF_1semGruppe5
     /// </summary>
     public partial class DataWindow : Window
     {
-        public DataWindow()
+        MainWindow mWindow = new MainWindow();
+
+        private string kNavn;
+
+        public DataWindow(string kommuneNavn)
         {
             InitializeComponent();
+            kNavn = kommuneNavn;
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            string connectionString;
+            SqlConnection cnn;
+
+
+            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
+            cnn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("SELECT IncidensTal FROM Kommuner WHERE KommuneNavn = @knavn", cnn);
+            cmd.Parameters.AddWithValue("@knavn", kNavn);
+            cnn.Open();
+
+            SqlDataReader sqlReader = cmd.ExecuteReader();
+
+            while (sqlReader.Read())
+            {
+                int tal = Convert.ToInt32(sqlReader["IncidensTal"]);
+                inciBox.Text += tal;
+            }
+
+            sqlReader.Close();
+
         }
     }
 }
