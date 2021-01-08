@@ -54,12 +54,12 @@ namespace WPF_1semGruppe5
             string password = "";
             password = cb.Text + "1234";
 
+
             if (pwBox.Password.ToString() == cb.Text + "1234")
             {
                 this.Hide();
                 DataWindow dataWindow = new DataWindow(cb.Text);
                 dataWindow.ShowDialog();
-                this.Close();
             }
             else if (cb.Text == "")
             {
