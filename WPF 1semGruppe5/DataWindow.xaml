@@ -5,19 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_1semGruppe5"
         mc:Ignorable="d"
-        Title="DataWindow" Height="450" Width="800" Activated="Window_Activated">
+        Title="DataWindow" Height="450" Width="800">
     <Grid>
         <TextBox Name="inciBox" HorizontalAlignment="Left" Margin="169,72,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
         <TextBox Name="smitteBox" HorizontalAlignment="Left" Margin="169,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
         <Label Content="Incidenstal" HorizontalAlignment="Left" Margin="39,67,0,0" VerticalAlignment="Top"/>
         <Label Content="Udviklingen af smitte" HorizontalAlignment="Left" Margin="39,105,0,0" VerticalAlignment="Top"/>
-        <Label Content="Data" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="39,22,0,0" VerticalAlignment="Top"/>
+        <Label Content="Data for" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="39,22,0,0" VerticalAlignment="Top"/>
+        <Label Name="komNavnTxt" Content="" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="112,22,0,0" VerticalAlignment="Top"/>
         <Label Content="Brancher" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="391,22,0,0" VerticalAlignment="Top"/>
         <Label Content="Antal smittede pr dag" HorizontalAlignment="Left" Margin="39,146,0,0" VerticalAlignment="Top"/>
-        <DataGrid HorizontalAlignment="Left" Height="235" Margin="169,154,0,0" VerticalAlignment="Top" Width="180">
+        <DataGrid Name="dataGrid" HorizontalAlignment="Left" Height="235" Margin="169,154,0,0" VerticalAlignment="Top" Width="180" AutoGenerateColumns="False" ColumnWidth="*">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Dato" Binding="{Binding Dato}" Width="90"/>
-                <DataGridTextColumn Header="Cases" Binding="{Binding Cases}" Width="90"/>
+                <DataGridTextColumn Header="Dato" Binding="{Binding Dato}" Width="4*"/>
+                <DataGridTextColumn Header="Cases" Binding="{Binding Cases}" Width="5*"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid HorizontalAlignment="Left" Height="297" Margin="391,67,0,0" VerticalAlignment="Top" Width="381"/>
