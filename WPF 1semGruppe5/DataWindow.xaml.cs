@@ -24,4 +24,3 @@ namespace WPF_1semGruppe5
             InitializeComponent();
         }
     }
-}
