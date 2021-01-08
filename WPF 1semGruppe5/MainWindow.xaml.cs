@@ -21,6 +21,7 @@ namespace WPF_1semGruppe5
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,12 +29,9 @@ namespace WPF_1semGruppe5
             string connectionString;
             SqlConnection cnn;
 
-            connectionString = "Data Source = DESKTOP-52HHE51;Initial Catalog = 1semGruppe5; Integrated Security = True";
-
+            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
             cnn = new SqlConnection(connectionString);
-
             SqlCommand cmd = new SqlCommand("SELECT KommuneNavn FROM Kommuner", cnn);
-
             cnn.Open();
 
             SqlDataReader sqlReader = cmd.ExecuteReader();
@@ -59,7 +57,7 @@ namespace WPF_1semGruppe5
             if (pwBox.Password.ToString() == cb.Text + "1234")
             {
                 this.Hide();
-                DataWindow dataWindow = new DataWindow();
+                DataWindow dataWindow = new DataWindow(cb.Text);
                 dataWindow.ShowDialog();
                 this.Close();
             }
@@ -74,6 +72,7 @@ namespace WPF_1semGruppe5
             }
             
         }
+
     }
 
 }
