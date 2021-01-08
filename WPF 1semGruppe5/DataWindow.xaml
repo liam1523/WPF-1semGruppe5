@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="DataWindow" Height="450" Width="800">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="169,72,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="169,110,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="169,72,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180"/>
+        <TextBox HorizontalAlignment="Left" Margin="169,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180"/>
         <Label Content="Incidenstal" HorizontalAlignment="Left" Margin="39,67,0,0" VerticalAlignment="Top"/>
         <Label Content="Udviklingen af smitte" HorizontalAlignment="Left" Margin="39,105,0,0" VerticalAlignment="Top"/>
         <Label Content="Data" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="39,22,0,0" VerticalAlignment="Top"/>
