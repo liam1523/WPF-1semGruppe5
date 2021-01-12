@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_1semGruppe5"
         mc:Ignorable="d"
-        Title="Login kommune" Height="269.512" Width="485.366">
+        Title="Login kommune" Height="269.512" Width="485.366" ResizeMode="NoResize">
     <Grid>
         <ComboBox IsEditable="True"
                     x:Name="cb"
