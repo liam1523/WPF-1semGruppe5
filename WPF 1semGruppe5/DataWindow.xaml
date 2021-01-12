@@ -5,24 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_1semGruppe5"
         mc:Ignorable="d"
-        Title="DataWindow" Height="450" Width="800">
+        Title="DataWindow" Height="450" Width="800" Closing="Window_Closing" ResizeMode="NoResize">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="169,72,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="169,110,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <TextBox Name="inciBox" HorizontalAlignment="Left" Margin="169,72,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
+        <TextBox Name="smitteBox" HorizontalAlignment="Left" Margin="169,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
         <Label Content="Incidenstal" HorizontalAlignment="Left" Margin="39,67,0,0" VerticalAlignment="Top"/>
         <Label Content="Udviklingen af smitte" HorizontalAlignment="Left" Margin="39,105,0,0" VerticalAlignment="Top"/>
-        <Label Content="Data" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="39,22,0,0" VerticalAlignment="Top"/>
+        <Label Content="Data for" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="39,22,0,0" VerticalAlignment="Top"/>
+        <Label Name="komNavnTxt" Content="" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="112,22,0,0" VerticalAlignment="Top"/>
         <Label Content="Brancher" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="391,22,0,0" VerticalAlignment="Top"/>
         <Label Content="Antal smittede pr dag" HorizontalAlignment="Left" Margin="39,146,0,0" VerticalAlignment="Top"/>
-        <DataGrid HorizontalAlignment="Left" Height="235" Margin="169,154,0,0" VerticalAlignment="Top" Width="180">
+        <DataGrid Name="dataGrid" HorizontalAlignment="Left" Height="235" Margin="169,154,0,0" VerticalAlignment="Top" Width="180" AutoGenerateColumns="False" ColumnWidth="*">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Dato" Binding="{Binding Dato}" Width="90"/>
-                <DataGridTextColumn Header="Cases" Binding="{Binding Cases}" Width="90"/>
+                <DataGridTextColumn Header="Dato" Binding="{Binding Dato}" Width="4*"/>
+                <DataGridTextColumn Header="Cases" Binding="{Binding Cases}" Width="5*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid HorizontalAlignment="Left" Height="297" Margin="391,67,0,0" VerticalAlignment="Top" Width="381"/>
-        <Button Content="Nedluk" HorizontalAlignment="Left" Margin="395,380,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Påføre restriktioner" HorizontalAlignment="Left" Margin="485,380,0,0" VerticalAlignment="Top" Width="113"/>
-        <Button Content="Åben" HorizontalAlignment="Left" Margin="611,380,0,0" VerticalAlignment="Top" Width="75"/>
+        <DataGrid Name="dataGridBranche" HorizontalAlignment="Left" Height="297" Margin="391,67,0,0" VerticalAlignment="Top" Width="381" AutoGenerateColumns="False">
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Tilstand}" Value="0">
+                            <Setter Property="Background" Value="LightGreen"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Tilstand}" Value="1">
+                            <Setter Property="Background" Value="#FF5555"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Tilstand}" Value="2">
+                            <Setter Property="Background" Value="Yellow"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="BrancheID" Binding="{Binding BrancheID}" Width="1*"/>
+                <DataGridTextColumn Header="Branchekode" Binding="{Binding Branchekode}" Width="1*"/>
+                <DataGridTextColumn Header="Niveau" Binding="{Binding Niveau}" Width="1*"/>
+                <DataGridTextColumn Header="Titel" Binding="{Binding Titel}" Width="4*"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <Button Content="Nedluk" Background="#FF5555" HorizontalAlignment="Left" Margin="391,380,0,0" VerticalAlignment="Top" Width="75" Click="LukningButton_Click"/>
+        <Button Content="Påføre restriktioner" Background="Yellow" HorizontalAlignment="Left" Margin="481,380,0,0" VerticalAlignment="Top" Width="113" Click="RestriktionButton_Click"/>
+        <Button Content="Åben" Background="LightGreen" HorizontalAlignment="Left" Margin="611,380,0,0" VerticalAlignment="Top" Width="75" Click="AabningButton_Click"/>
     </Grid>
 </Window>

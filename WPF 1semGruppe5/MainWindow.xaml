@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_1semGruppe5"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Login kommune" Height="269.512" Width="485.366" ResizeMode="NoResize">
     <Grid>
-
+        <ComboBox IsEditable="True"
+                    x:Name="cb"
+                    IsTextSearchEnabled="True" 
+                    PreviewTextInput="Cb_OnPreviewTextInput"
+                  Text=""
+                    HorizontalAlignment="Left" Margin="160,64,0,0" VerticalAlignment="Top" Width="260" RenderTransformOrigin="0.091,-0.812">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+        </ComboBox>
+        <Label Content="Vælg din kommune" HorizontalAlignment="Left" Margin="42,60,0,0" VerticalAlignment="Top"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="42,121,0,0" VerticalAlignment="Top"/>
+        <PasswordBox Name="pwBox"  HorizontalAlignment="Left" Margin="160,121,0,0" VerticalAlignment="Top" Width="260" Height="25"/>
+        <Button Content="Login" HorizontalAlignment="Left" Margin="193,184,0,0" VerticalAlignment="Top" Width="74" Click="LoginButton_Click"/>
     </Grid>
 </Window>

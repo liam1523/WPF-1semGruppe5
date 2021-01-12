@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,54 @@ namespace WPF_1semGruppe5
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+
+            string connectionString;
+            SqlConnection cnn;
+
+            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
+            cnn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("SELECT KommuneNavn FROM Kommuner", cnn);
+            cnn.Open();
+
+            SqlDataReader sqlReader = cmd.ExecuteReader();
+
+            while (sqlReader.Read())
+            {
+                cb.Items.Add(sqlReader["KommuneNavn"].ToString());
+            }
+            sqlReader.Close();
+
+        }
+
+        private void Cb_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            cb.IsDropDownOpen = true;
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            string password = "";
+            password = cb.Text + "1234";
+
+            if (pwBox.Password.ToString() == cb.Text + "1234")
+            {
+                this.Hide();
+                DataWindow dataWindow = new DataWindow(cb.Text);
+                dataWindow.ShowDialog();
+            }
+            else if (cb.Text == "")
+            {
+                MessageBox.Show("Vælg din kommune", "Prøv igen", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                pwBox.Password = string.Empty;
+                MessageBox.Show("Forkert kode", "Prøv igen", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
     }
