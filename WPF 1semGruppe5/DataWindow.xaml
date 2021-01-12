@@ -24,7 +24,6 @@
         <DataGrid Name="dataGridBranche" HorizontalAlignment="Left" Height="297" Margin="391,67,0,0" VerticalAlignment="Top" Width="381" AutoGenerateColumns="False">
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="DataGridRow">
-                    <Setter Property="Background" Value="White"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Tilstand}" Value="0">
                             <Setter Property="Background" Value="LightGreen"/>
@@ -46,8 +45,8 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button Content="Nedluk" Background="#FF5555" HorizontalAlignment="Left" Margin="395,380,0,0" VerticalAlignment="Top" Width="75" Click="LukningButton_Click"/>
-        <Button Content="Påføre restriktioner" Background="Yellow" HorizontalAlignment="Left" Margin="485,380,0,0" VerticalAlignment="Top" Width="113" Click="RestriktionButton_Click"/>
+        <Button Content="Nedluk" Background="#FF5555" HorizontalAlignment="Left" Margin="391,380,0,0" VerticalAlignment="Top" Width="75" Click="LukningButton_Click"/>
+        <Button Content="Påføre restriktioner" Background="Yellow" HorizontalAlignment="Left" Margin="481,380,0,0" VerticalAlignment="Top" Width="113" Click="RestriktionButton_Click"/>
         <Button Content="Åben" Background="LightGreen" HorizontalAlignment="Left" Margin="611,380,0,0" VerticalAlignment="Top" Width="75" Click="AabningButton_Click"/>
     </Grid>
 </Window>

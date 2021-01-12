@@ -21,13 +21,13 @@ namespace WPF_1semGruppe5
     public partial class DataWindow : Window
     {
 
-        public struct SmitteTal
+        private struct SmitteTal
         {
             public string Dato { set; get; }
             public string Cases { set; get; }
         }
 
-        public class Branche
+        private class Branche
         {
             public int BrancheID { get; set; }
             public string Branchekode { get; set; }
@@ -36,9 +36,7 @@ namespace WPF_1semGruppe5
             public int Tilstand { get; set; }
         }
 
-        public List<Branche> vs = new List<Branche>();
-
-        MainWindow mWindow = new MainWindow();
+        private List<Branche> vs = new List<Branche>();
 
         private string kNavn;
 
@@ -106,7 +104,7 @@ namespace WPF_1semGruppe5
 
         }
 
-        public void GetBrancher()
+        private void GetBrancher()
         {
             string connectionString;
             SqlConnection cnn;
@@ -134,7 +132,7 @@ namespace WPF_1semGruppe5
             cnn.Close();
         }
 
-        public void GetLukketBrancher()
+        private void GetLukketBrancher()
         {
             string connectionString;
             SqlConnection cnn;
@@ -158,7 +156,7 @@ namespace WPF_1semGruppe5
             sqlReader.Close();
         }
 
-        public void GetRestriktionBrancher()
+        private void GetRestriktionBrancher()
         {
             string connectionString;
             SqlConnection cnn;
@@ -182,7 +180,7 @@ namespace WPF_1semGruppe5
             sqlReader.Close();
         }
 
-        public int GetKommuneID()
+        private int GetKommuneID()
         {
             int kommuneTal = 0;
             string connectionString;
@@ -221,32 +219,35 @@ namespace WPF_1semGruppe5
         private void LukningButton_Click(object sender, RoutedEventArgs e)
         {
             DataGridRow dataGridRow = dataGridBranche.ItemContainerGenerator.ContainerFromIndex(dataGridBranche.SelectedIndex) as DataGridRow;
-            string connectionString;
-            SqlConnection cnn;
-
-            int kommuneTal = GetKommuneID();
-            int branchetal = 0;
-
-            Branche branche = new Branche();
-            foreach (var obj in dataGridBranche.SelectedItems)
+            if (dataGridRow.Background == Brushes.LightGreen)
             {
-                branche = obj as Branche;
-                branchetal = branche.BrancheID;
+                string connectionString;
+                SqlConnection cnn;
+
+                int kommuneTal = GetKommuneID();
+                int branchetal = 0;
+
+                Branche branche = new Branche();
+                foreach (var obj in dataGridBranche.SelectedItems)
+                {
+                    branche = obj as Branche;
+                    branchetal = branche.BrancheID;
+                }
+
+                connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
+                cnn = new SqlConnection(connectionString);
+                string command = string.Format("INSERT INTO Lukning (BrancheID, LDatoTid, KommuneID) VALUES ({0}, GETDATE(), {1})", branchetal, kommuneTal);
+                SqlCommand cmd = new SqlCommand(command, cnn);
+                cnn.Open();
+
+                cmd.ExecuteNonQuery();
+
+                if (dataGridRow != null)
+                {
+                    dataGridRow.Background = Brushes.LightPink;
+                }
+                dataGridRow.IsSelected = false;
             }
-
-            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
-            cnn = new SqlConnection(connectionString);
-            string command = string.Format("INSERT INTO Lukning (BrancheID, LDatoTid, KommuneID) VALUES ({0}, GETDATE(), {1})", branchetal, kommuneTal);
-            SqlCommand cmd = new SqlCommand(command, cnn);
-            cnn.Open();
-
-            cmd.ExecuteNonQuery();
-
-            if (dataGridRow != null)
-            {
-                dataGridRow.Background = Brushes.LightPink;
-            }
-            dataGridRow.IsSelected = false;
         }
 
         private void AabningButton_Click(object sender, RoutedEventArgs e)
@@ -282,32 +283,35 @@ namespace WPF_1semGruppe5
         private void RestriktionButton_Click(object sender, RoutedEventArgs e)
         {
             DataGridRow dataGridRow = dataGridBranche.ItemContainerGenerator.ContainerFromIndex(dataGridBranche.SelectedIndex) as DataGridRow;
-            string connectionString;
-            SqlConnection cnn;
-
-            int kommuneTal = GetKommuneID();
-            int branchetal = 0;
-
-            Branche branche = new Branche();
-            foreach (var obj in dataGridBranche.SelectedItems)
+            if (dataGridRow.Background == Brushes.LightGreen)
             {
-                branche = obj as Branche;
-                branchetal = branche.BrancheID;
+                string connectionString;
+                SqlConnection cnn;
+
+                int kommuneTal = GetKommuneID();
+                int branchetal = 0;
+
+                Branche branche = new Branche();
+                foreach (var obj in dataGridBranche.SelectedItems)
+                {
+                    branche = obj as Branche;
+                    branchetal = branche.BrancheID;
+                }
+
+                connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
+                cnn = new SqlConnection(connectionString);
+                string command = string.Format("INSERT INTO Restriktion (BrancheID, RDatoTid, KommuneID) VALUES ({0}, GETDATE(), {1})", branchetal, kommuneTal);
+                SqlCommand cmd = new SqlCommand(command, cnn);
+                cnn.Open();
+
+                cmd.ExecuteNonQuery();
+
+                if (dataGridRow != null)
+                {
+                    dataGridRow.Background = Brushes.Yellow;
+                }
+                dataGridRow.IsSelected = false;
             }
-
-            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
-            cnn = new SqlConnection(connectionString);
-            string command = string.Format("INSERT INTO Restriktion (BrancheID, RDatoTid, KommuneID) VALUES ({0}, GETDATE(), {1})", branchetal, kommuneTal);
-            SqlCommand cmd = new SqlCommand(command, cnn);
-            cnn.Open();
-
-            cmd.ExecuteNonQuery();
-
-            if (dataGridRow != null)
-            {
-                dataGridRow.Background = Brushes.Yellow;
-            }
-            dataGridRow.IsSelected = false;
         }
     }
 }
