@@ -15,13 +15,13 @@
         <Label Name="komNavnTxt" Content="" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="112,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Brancher" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="391,22,0,0" VerticalAlignment="Top"/>
         <Label Content="Antal smittede pr dag" HorizontalAlignment="Left" Margin="39,146,0,0" VerticalAlignment="Top"/>
-        <DataGrid Name="dataGrid" HorizontalAlignment="Left" Height="235" Margin="169,154,0,0" VerticalAlignment="Top" Width="180" AutoGenerateColumns="False" ColumnWidth="*">
+        <DataGrid Name="dataGrid" HorizontalAlignment="Left" Height="235" Margin="169,154,0,0" VerticalAlignment="Top" Width="180" AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True" CanUserAddRows="False" CanUserResizeColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Dato" Binding="{Binding Dato}" Width="4*"/>
                 <DataGridTextColumn Header="Cases" Binding="{Binding Cases}" Width="5*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid Name="dataGridBranche" HorizontalAlignment="Left" Height="297" Margin="391,67,0,0" VerticalAlignment="Top" Width="381" AutoGenerateColumns="False">
+        <DataGrid Name="dataGridBranche" HorizontalAlignment="Left" Height="297" Margin="391,67,0,0" VerticalAlignment="Top" Width="381" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserResizeColumns="False">
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
@@ -43,8 +43,8 @@
                 <DataGridTextColumn Header="Niveau" Binding="{Binding Niveau}" Width="1*"/>
                 <DataGridTextColumn Header="Titel" Binding="{Binding Titel}" Width="4*"/>
             </DataGrid.Columns>
-
         </DataGrid>
+        
         <Button Content="Nedluk" Background="#FF5555" HorizontalAlignment="Left" Margin="391,380,0,0" VerticalAlignment="Top" Width="75" Click="LukningButton_Click"/>
         <Button Content="Påføre restriktioner" Background="Yellow" HorizontalAlignment="Left" Margin="481,380,0,0" VerticalAlignment="Top" Width="113" Click="RestriktionButton_Click"/>
         <Button Content="Åben" Background="LightGreen" HorizontalAlignment="Left" Margin="611,380,0,0" VerticalAlignment="Top" Width="75" Click="AabningButton_Click"/>

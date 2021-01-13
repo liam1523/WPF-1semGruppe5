@@ -64,6 +64,8 @@ namespace WPF_1semGruppe5
             string password = "";
             password = cb.Text + "1234";
 
+            cb.Text = cb.Text.Trim();
+
             if (pwBox.Password.ToString() == cb.Text + "1234")
             {
                 this.Hide();

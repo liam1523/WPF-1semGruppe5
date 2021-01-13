@@ -56,18 +56,7 @@ namespace WPF_1semGruppe5
             GetLukketBrancher();
             GetRestriktionBrancher();
             GetBrancher();
-            if (resultpro >= 20 && resultpro <= 30)
-            {
-                advarsel.Content = "Anbefales påførsel af restriktioner";
-            }
-            else if (resultpro > 30 && resultpro <= 45)
-            {
-                advarsel.Content = "Anbefales restriktioner eller lukning";
-            }
-            else
-            {
-                advarsel.Content = "Anbefales der fortages lukning";
-            }
+            Advarsel();
 
         }
 
@@ -479,6 +468,23 @@ namespace WPF_1semGruppe5
             {
                 if (cnn != null && cnn.State == ConnectionState.Open) cnn.Close();
             }
+        }
+
+        private void Advarsel()
+        {
+            if (resultpro >= 20 && resultpro <= 30)
+            {
+                advarsel.Content = "Anbefales påførsel af restriktioner";
+            }
+            else if (resultpro > 30 && resultpro <= 45)
+            {
+                advarsel.Content = "Anbefales restriktioner eller lukning";
+            }
+            else
+            {
+                advarsel.Content = "Anbefales der fortages lukning";
+            }
+
         }
     }
 }
