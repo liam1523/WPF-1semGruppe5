@@ -49,6 +49,7 @@ namespace WPF_1semGruppe5
             dataGridBranche.ItemsSource = vs;
             GetIncidenstal();
             GetSmittePrDag();
+            GetUdviklingenAfSmitte();
             GetLukketBrancher();
             GetRestriktionBrancher();
             GetBrancher();
@@ -125,6 +126,49 @@ namespace WPF_1semGruppe5
             }
 
 
+        }
+
+        private void GetUdviklingenAfSmitte()
+        {
+            string connectionString;
+            SqlConnection cnn;
+            int result = 0;
+            double result2 = 0;
+            int count = 0;
+            double resultpro = 0;
+            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
+            cnn = new SqlConnection(connectionString);
+            string command = string.Format("SELECT {0} FROM SmitteTal WHERE Dato not in (SELECT TOP((SELECT count(*) FROM SmitteTal) - 30) Dato from Smittetal)", kNavn);
+            SqlCommand cmd = new SqlCommand(command, cnn);
+            cnn.Open();
+
+            SqlDataReader sqlReader = cmd.ExecuteReader();
+
+            while (sqlReader.Read())
+            {
+                if (count < 15)
+                {
+                    int tal = Convert.ToInt32(sqlReader[kNavn]);
+                    result += tal;
+                    count++;
+                }
+                else if (count >= 15)
+                {
+                    int tal = Convert.ToInt32(sqlReader[kNavn]);
+                    result2 += tal;
+                    count++;
+                }
+                resultpro = (result - result2 )/ result2 * 100;
+            }
+            if (resultpro < 0)
+            {
+                smitteBox.Text += "faldet med " + Math.Round(resultpro) + "% over de sidste 15 dage";
+            }
+            else if (resultpro > 0)
+            {
+                smitteBox.Text += "steget med " + Math.Round(resultpro) + "% over de sidste 15 dage";
+            }
+            sqlReader.Close();
         }
 
         private void GetBrancher()
