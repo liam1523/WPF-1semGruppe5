@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -25,22 +26,31 @@ namespace WPF_1semGruppe5
         public MainWindow()
         {
             InitializeComponent();
-
             string connectionString;
             SqlConnection cnn;
 
             connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
             cnn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT KommuneNavn FROM Kommuner", cnn);
-            cnn.Open();
-
-            SqlDataReader sqlReader = cmd.ExecuteReader();
-
-            while (sqlReader.Read())
+            try
             {
-                cb.Items.Add(sqlReader["KommuneNavn"].ToString());
+                SqlCommand cmd = new SqlCommand("SELECT KommuneNavn FROM Kommuner", cnn);
+                cnn.Open();
+                SqlDataReader sqlReader = cmd.ExecuteReader();
+
+                while (sqlReader.Read())
+                {
+                    cb.Items.Add(sqlReader["KommuneNavn"].ToString());
+                }
+                sqlReader.Close();
             }
-            sqlReader.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (cnn != null && cnn.State == ConnectionState.Open) cnn.Close();
+            }
 
         }
 
@@ -59,6 +69,7 @@ namespace WPF_1semGruppe5
                 this.Hide();
                 DataWindow dataWindow = new DataWindow(cb.Text);
                 dataWindow.ShowDialog();
+                this.Close();
             }
             else if (cb.Text == "")
             {
