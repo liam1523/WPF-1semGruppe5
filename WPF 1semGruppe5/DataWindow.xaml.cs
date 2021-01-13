@@ -68,8 +68,8 @@ namespace WPF_1semGruppe5
             cnn = new SqlConnection(connectionString);
             try
             {
-                SqlCommand cmd = new SqlCommand("SELECT IncidensTal FROM Kommuner WHERE KommuneNavn = @knavn", cnn);
-                cmd.Parameters.AddWithValue("@knavn", kNavn);
+                string command = string.Format("SELECT IncidensTal FROM Kommuner WHERE KommuneNavn = {0}", kNavn);
+                SqlCommand cmd = new SqlCommand(command, cnn);
                 cnn.Open();
 
                 SqlDataReader sqlReader = cmd.ExecuteReader();
@@ -143,12 +143,11 @@ namespace WPF_1semGruppe5
             cnn = new SqlConnection(connectionString);
             try
             {
-                string command = string.Format("SELECT {0} FROM SmitteTal WHERE Dato not in (SELECT TOP((SELECT count(*) FROM SmitteTal) - 30) Dato from Smittetal)", kNavn);
+                string command = string.Format("SELECT {0} FROM SmitteTal WHERE Dato not in " +
+                    "(SELECT TOP((SELECT count(*) FROM SmitteTal) - 30) Dato from Smittetal)", kNavn);
                 SqlCommand cmd = new SqlCommand(command, cnn);
                 cnn.Open();
-
                 SqlDataReader sqlReader = cmd.ExecuteReader();
-
                 while (sqlReader.Read())
                 {
                     if (count < 15)
@@ -165,7 +164,6 @@ namespace WPF_1semGruppe5
                     }
                     resultpro = (result - result2) / result2 * 100;
                 }
-
                 if (resultpro < 0)
                 {
                     smitteBox.Text += "faldet med " + Math.Round(resultpro) + "% over de sidste 15 dage";
@@ -326,18 +324,6 @@ namespace WPF_1semGruppe5
             return kommuneTal;
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (true)
-            {
-                MessageBoxResult result = MessageBox.Show("Er du sikker på at du vil lukke programmet?", "Data program", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if (result == MessageBoxResult.No)
-                {
-                    e.Cancel = true;
-                }
-            }
-        }
-
         private void LukningButton_Click(object sender, RoutedEventArgs e)
         {
             DataGridRow dataGridRow = dataGridBranche.ItemContainerGenerator.ContainerFromIndex(dataGridBranche.SelectedIndex) as DataGridRow;
@@ -472,6 +458,7 @@ namespace WPF_1semGruppe5
 
         private void Advarsel()
         {
+
             if (resultpro >= 20 && resultpro <= 30)
             {
                 advarsel.Content = "Anbefales påførsel af restriktioner";
@@ -480,7 +467,7 @@ namespace WPF_1semGruppe5
             {
                 advarsel.Content = "Anbefales restriktioner eller lukning";
             }
-            else
+            else if (resultpro > 45)
             {
                 advarsel.Content = "Anbefales der fortages lukning";
             }

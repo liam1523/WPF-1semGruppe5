@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_1semGruppe5"
         mc:Ignorable="d"
-        Title="DataWindow" Height="450" Width="800" Closing="Window_Closing" ResizeMode="NoResize">
+        Title="DataWindow" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
         <TextBox Name="inciBox" HorizontalAlignment="Left" Margin="169,52,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
         <TextBox Name="smitteBox" HorizontalAlignment="Left" Margin="169,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>

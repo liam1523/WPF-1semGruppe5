@@ -61,12 +61,27 @@ namespace WPF_1semGruppe5
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            bool rigtigKommune = false;
             string password = "";
             password = cb.Text + "1234";
 
             cb.Text = cb.Text.Trim();
 
-            if (pwBox.Password.ToString() == cb.Text + "1234")
+            foreach (var item in cb.Items)
+            {
+                if (cb.Text.Equals(item.ToString()))
+                {
+                    rigtigKommune = true;
+                }
+            }
+
+            if (rigtigKommune == false)
+            {
+                MessageBox.Show("Vælg en gyldig kommune", "Prøv igen", MessageBoxButton.OK, MessageBoxImage.Warning);
+                cb.Text = "";
+                pwBox.Password = string.Empty;
+            }
+            else if (pwBox.Password.ToString() == cb.Text + "1234")
             {
                 this.Hide();
                 DataWindow dataWindow = new DataWindow(cb.Text);
