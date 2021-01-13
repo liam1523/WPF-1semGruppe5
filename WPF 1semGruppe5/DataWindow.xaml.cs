@@ -68,7 +68,7 @@ namespace WPF_1semGruppe5
             cnn = new SqlConnection(connectionString);
             try
             {
-                string command = string.Format("SELECT IncidensTal FROM Kommuner WHERE KommuneNavn = {0}", kNavn);
+                string command = string.Format("SELECT IncidensTal FROM Kommuner WHERE KommuneNavn = '{0}'", kNavn);
                 SqlCommand cmd = new SqlCommand(command, cnn);
                 cnn.Open();
 
@@ -326,10 +326,12 @@ namespace WPF_1semGruppe5
 
         private void LukningButton_Click(object sender, RoutedEventArgs e)
         {
-            DataGridRow dataGridRow = dataGridBranche.ItemContainerGenerator.ContainerFromIndex(dataGridBranche.SelectedIndex) as DataGridRow;
             string connectionString;
             SqlConnection cnn;
+            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
+            cnn = new SqlConnection(connectionString);
 
+            DataGridRow dataGridRow = dataGridBranche.ItemContainerGenerator.ContainerFromIndex(dataGridBranche.SelectedIndex) as DataGridRow;
             int kommuneTal = GetKommuneID();
             int branchetal = 0;
 
@@ -339,14 +341,12 @@ namespace WPF_1semGruppe5
                 branche = obj as Branche;
                 branchetal = branche.BrancheID;
             }
-
-            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
-            cnn = new SqlConnection(connectionString);
             if (dataGridRow.Background == Brushes.LightGreen)
             {
                 try
                 {
-                    string command = string.Format("INSERT INTO Lukning (BrancheID, LDatoTid, KommuneID) VALUES ({0}, GETDATE(), {1})", branchetal, kommuneTal);
+                    string command = string.Format("INSERT INTO Lukning (BrancheID, LDatoTid, KommuneID) " +
+                        "VALUES ({0}, GETDATE(), {1})", branchetal, kommuneTal);
                     SqlCommand cmd = new SqlCommand(command, cnn);
                     cnn.Open();
 
@@ -371,10 +371,12 @@ namespace WPF_1semGruppe5
 
         private void AabningButton_Click(object sender, RoutedEventArgs e)
         {
-            DataGridRow dataGridRow = dataGridBranche.ItemContainerGenerator.ContainerFromIndex(dataGridBranche.SelectedIndex) as DataGridRow;
             string connectionString;
             SqlConnection cnn;
+            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
+            cnn = new SqlConnection(connectionString);
 
+            DataGridRow dataGridRow = dataGridBranche.ItemContainerGenerator.ContainerFromIndex(dataGridBranche.SelectedIndex) as DataGridRow;
             int kommuneTal = GetKommuneID();
             int branchetal = 0;
 
@@ -384,12 +386,10 @@ namespace WPF_1semGruppe5
                 branche = obj as Branche;
                 branchetal = branche.BrancheID;
             }
-
-            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
-            cnn = new SqlConnection(connectionString);
             try
             {
-                string command = string.Format("DELETE FROM Restriktion WHERE BrancheID = {0} and KommuneID = {1}; DELETE FROM Lukning WHERE BrancheID = {0} and KommuneID = {1}", branchetal, kommuneTal);
+                string command = string.Format("DELETE FROM Restriktion WHERE BrancheID = {0} and KommuneID = {1};" +
+                    " DELETE FROM Lukning WHERE BrancheID = {0} and KommuneID = {1}", branchetal, kommuneTal);
                 SqlCommand cmd = new SqlCommand(command, cnn);
                 cnn.Open();
 
@@ -414,10 +414,12 @@ namespace WPF_1semGruppe5
 
         private void RestriktionButton_Click(object sender, RoutedEventArgs e)
         {
-            DataGridRow dataGridRow = dataGridBranche.ItemContainerGenerator.ContainerFromIndex(dataGridBranche.SelectedIndex) as DataGridRow;
             string connectionString;
             SqlConnection cnn;
+            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
+            cnn = new SqlConnection(connectionString);
 
+            DataGridRow dataGridRow = dataGridBranche.ItemContainerGenerator.ContainerFromIndex(dataGridBranche.SelectedIndex) as DataGridRow;
             int kommuneTal = GetKommuneID();
             int branchetal = 0;
 
@@ -427,13 +429,12 @@ namespace WPF_1semGruppe5
                 branche = obj as Branche;
                 branchetal = branche.BrancheID;
             }
-            connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
-            cnn = new SqlConnection(connectionString);
             try
             {
                 if (dataGridRow.Background == Brushes.LightGreen)
                 {
-                    string command = string.Format("INSERT INTO Restriktion (BrancheID, RDatoTid, KommuneID) VALUES ({0}, GETDATE(), {1})", branchetal, kommuneTal);
+                    string command = string.Format("INSERT INTO Restriktion (BrancheID, RDatoTid, KommuneID) " +
+                        "VALUES ({0}, GETDATE(), {1})", branchetal, kommuneTal);
                     SqlCommand cmd = new SqlCommand(command, cnn);
                     cnn.Open();
 
