@@ -125,7 +125,6 @@ namespace WPF_1semGruppe5
                 if (cnn != null && cnn.State == ConnectionState.Open) cnn.Close();
             }
 
-
         }
 
         private void GetUdviklingenAfSmitte()
@@ -138,37 +137,48 @@ namespace WPF_1semGruppe5
             double resultpro = 0;
             connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
             cnn = new SqlConnection(connectionString);
-            string command = string.Format("SELECT {0} FROM SmitteTal WHERE Dato not in (SELECT TOP((SELECT count(*) FROM SmitteTal) - 30) Dato from Smittetal)", kNavn);
-            SqlCommand cmd = new SqlCommand(command, cnn);
-            cnn.Open();
+            try
+            {
+                string command = string.Format("SELECT {0} FROM SmitteTal WHERE Dato not in (SELECT TOP((SELECT count(*) FROM SmitteTal) - 30) Dato from Smittetal)", kNavn);
+                SqlCommand cmd = new SqlCommand(command, cnn);
+                cnn.Open();
 
-            SqlDataReader sqlReader = cmd.ExecuteReader();
+                SqlDataReader sqlReader = cmd.ExecuteReader();
 
-            while (sqlReader.Read())
-            {
-                if (count < 15)
+                while (sqlReader.Read())
                 {
-                    int tal = Convert.ToInt32(sqlReader[kNavn]);
-                    result += tal;
-                    count++;
+                    if (count < 15)
+                    {
+                        int tal = Convert.ToInt32(sqlReader[kNavn]);
+                        result += tal;
+                        count++;
+                    }
+                    else if (count >= 15)
+                    {
+                        int tal = Convert.ToInt32(sqlReader[kNavn]);
+                        result2 += tal;
+                        count++;
+                    }
+                    resultpro = (result - result2) / result2 * 100;
                 }
-                else if (count >= 15)
+                if (resultpro < 0)
                 {
-                    int tal = Convert.ToInt32(sqlReader[kNavn]);
-                    result2 += tal;
-                    count++;
+                    smitteBox.Text += "faldet med " + Math.Round(resultpro) + "% over de sidste 15 dage";
                 }
-                resultpro = (result - result2 )/ result2 * 100;
+                else if (resultpro > 0)
+                {
+                    smitteBox.Text += "steget med " + Math.Round(resultpro) + "% over de sidste 15 dage";
+                }
+                sqlReader.Close();
             }
-            if (resultpro < 0)
+            catch (Exception e)
             {
-                smitteBox.Text += "faldet med " + Math.Round(resultpro) + "% over de sidste 15 dage";
+                MessageBox.Show(e.Message);
             }
-            else if (resultpro > 0)
+            finally
             {
-                smitteBox.Text += "steget med " + Math.Round(resultpro) + "% over de sidste 15 dage";
+                if (cnn != null && cnn.State == ConnectionState.Open) cnn.Close();
             }
-            sqlReader.Close();
         }
 
         private void GetBrancher()
