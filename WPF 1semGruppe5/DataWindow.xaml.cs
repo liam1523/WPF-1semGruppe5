@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,6 +42,8 @@ namespace WPF_1semGruppe5
 
         private string kNavn;
 
+        private double resultpro = 0;
+
         public DataWindow(string kommuneNavn)
         {
             InitializeComponent();
@@ -53,6 +56,19 @@ namespace WPF_1semGruppe5
             GetLukketBrancher();
             GetRestriktionBrancher();
             GetBrancher();
+            if (resultpro >= 20 && resultpro <= 30)
+            {
+                advarsel.Content = "Anbefales påførsel af restriktioner";
+            }
+            else if (resultpro > 30 && resultpro <= 45)
+            {
+                advarsel.Content = "Anbefales restriktioner eller lukning";
+            }
+            else
+            {
+                advarsel.Content = "Anbefales der fortages lukning";
+            }
+
         }
 
         private void GetIncidenstal()
@@ -134,7 +150,6 @@ namespace WPF_1semGruppe5
             int result = 0;
             double result2 = 0;
             int count = 0;
-            double resultpro = 0;
             connectionString = "Data Source = .;Initial Catalog = Projekt1semGruppe5; Integrated Security = True";
             cnn = new SqlConnection(connectionString);
             try
@@ -161,6 +176,7 @@ namespace WPF_1semGruppe5
                     }
                     resultpro = (result - result2) / result2 * 100;
                 }
+
                 if (resultpro < 0)
                 {
                     smitteBox.Text += "faldet med " + Math.Round(resultpro) + "% over de sidste 15 dage";
@@ -169,6 +185,7 @@ namespace WPF_1semGruppe5
                 {
                     smitteBox.Text += "steget med " + Math.Round(resultpro) + "% over de sidste 15 dage";
                 }
+
                 sqlReader.Close();
             }
             catch (Exception e)
