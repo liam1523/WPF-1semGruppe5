@@ -38,8 +38,8 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="BrancheID" Binding="{Binding BrancheID}" Width="1*"/>
-                <DataGridTextColumn Header="Branchekode" Binding="{Binding Branchekode}" Width="1*"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding BrancheID}" Width="1*"/>
+                <DataGridTextColumn Header="Kode" Binding="{Binding Branchekode}" Width="1*"/>
                 <DataGridTextColumn Header="Niveau" Binding="{Binding Niveau}" Width="1*"/>
                 <DataGridTextColumn Header="Titel" Binding="{Binding Titel}" Width="4*"/>
             </DataGrid.Columns>
